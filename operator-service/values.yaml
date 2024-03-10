@@ -8,7 +8,7 @@ image:
   repository: devnio/operatorservice
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "9"
+  tag: "7"
 
 imagePullSecrets: [{ name: dockerregcred }]
 nameOverride: ""
