@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: niop
+  namespace: nab-dev
+data:
+  SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/niotis?enabledTLSProtocols=TLSv1.2"
+  SPRING_DATASOURCE_USERNAME: "niotis"
+  SPRING_DATASOURCE_PASSWORD: "niotis"
+  COM_NIO_CONFIG_V2PLATFORMURL: "http://18.117.222.26:31575/cc/platform-configuration-service"
+  COM_NIO_CONFIG_V2DEVICEURL: "http://18.117.222.26:31577/dvc/device-registry-service"
+  COM_NIO_CONFIG_V2PARTNERURL: "http://18.117.222.26:31576/apc/application-partner-service"
+  COM_NIO_CONFIG_V2PARTNERUIURL: "http://18.117.222.26:31578/partner"
+  COM_NIO_CONFIG_V2MONETIZATIONURL: "http://18.117.222.26:31252/mzc/monetization-service"
+  COM_NIO_CONFIG_V2OPERATORURL: "http://18.117.222.26:31579/oc/operator-service"

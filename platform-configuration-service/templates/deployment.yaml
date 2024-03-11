@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "platform-configuration-service.fullname" . }}
+  namespace: nab-dev
+  labels:
+    {{- include "platform-configuration-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "platform-configuration-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "platform-configuration-service.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: [{ name: dockerregcred }]
+        
+    {{- end }}
+      serviceAccountName: {{ include "platform-configuration-service.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ENV_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_SERVER_PORT
+            - name: ENV_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_PROFILE
+            - name: ENV_APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_APP_NAME
+            - name: ENV_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_DB_URL
+            - name: ENV_DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_DB_USERNAME
+            - name: ENV_DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_DB_PASSWORD
+            - name: ENV_SWAGGER_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_SWAGGER_USERNAME
+            - name: ENV_SWAGGER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: pcsconfig
+                  key: ENV_SWAGGER_PASSWORD
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

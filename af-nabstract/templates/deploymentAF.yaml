@@ -1,0 +1,155 @@
+# INTEL CONFIDENTIAL
+#
+# Copyright 2020-2020 Intel Corporation.
+#
+# This software and the related documents are Intel copyrighted materials, and your use of
+# them is governed by the express license under which they were provided to you ("License").
+# Unless the License provides otherwise, you may not use, modify, copy, publish, distribute,
+# disclose or transmit this software or the related documents without Intel's prior written permission.
+#
+# This software and the related documents are provided as is, with no express or implied warranties,
+# other than those that are expressly stated in the License.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: "{{ .Values.service.name }}"
+  name: af
+  namespace: "{{ .Values.namespace }}"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      service: "{{ .Values.service.name }}"
+  template:
+    metadata:
+      labels:
+        service: "{{ .Values.service.name }}"
+      name: af
+      namespace: "{{ .Values.namespace }}"
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/" .Values.configmap.name ".yaml") . | sha256sum }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      volumes:
+        - name: shared-configs-af
+          configMap:
+            name: "{{ .Values.configmap.af }}"
+        - name: shared-configs-oauth2
+          configMap:
+            name: "{{ .Values.configmap.oauth2 }}"
+        - name: shared-certs
+          configMap:
+            name: "{{ .Values.configmap.certs }}"
+        - name: {{ .Values.agent.configmapName }}
+          configMap:
+            name: {{ .Values.agent.configMap }}
+        - name: certs
+          secret:
+            secretName: root-cert
+      {{- if eq .Values.stateless true }}
+        - name: db-certs
+          secret:
+            secretName: db-certs-secret
+      {{end}}
+      imagePullSecrets:
+      - name: dockerregcred
+      containers:
+        - securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+          name: af-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command: ["/bin/bash", "-c", "--"]
+          args: ["./entrypoint.sh"]
+          env:
+          - name: GO111MODULE
+            value: "on"
+      {{- if eq .Values.telemetry_disable false }}
+          - name: OTEL_AGENT_ENDPOINT
+            value: "{{ .Values.agent.receiver.opencensus.endpoint }}"
+      {{end}}
+#          - name: GRPC_GO_LOG_VERBOSITY_LEVEL
+#            value: "99"
+#          - name: GRPC_GO_LOG_SEVERITY_LEVEL
+#            value: "info"
+#          - name: GODEBUG
+#            value: "http2client=0,http2server=0,http2debug=1,http2debug=2"
+          resources:
+            requests:
+              memory: 1Gi
+            limits:
+              memory: 1Gi
+          ports:
+            - containerPort: 8050
+              name: cnca
+            - containerPort: 8051
+              name: nef
+            # Ansible replaces the port in af.json with nodePort
+            # as this is shared by AF outside cluster to consumers.
+            - containerPort: 30052
+              name: afnotifyws
+          volumeMounts:
+            - name: shared-configs-af
+              mountPath: /home/af/configs/af.json
+              subPath: af.json
+            - name: shared-configs-oauth2
+              mountPath: /home/af/configs/oauth2.json
+              subPath: oauth2.json
+            - name: shared-certs
+              mountPath: /etc/certs
+          {{- if eq .Values.stateless true }}
+            - name: db-certs
+              mountPath: /etc/db/certs
+          {{end}}
+      {{- if eq .Values.telemetry_disable false }}
+        - command:
+            - "/otelcol"
+            - "--config=/conf/otel-agent-config.yaml"
+            # Memory Ballast size should be max 1/3 to 1/2 of memory.
+            - "--mem-ballast-size-mib=165"
+            - "--log-level=DEBUG"
+          env:
+          - name: no_proxy
+            value: localhost,127.0.0.1,otel-collector.telemetry.svc
+          - name: GRPC_GO_LOG_VERBOSITY_LEVEL
+            value: "99"
+          - name: GRPC_GO_LOG_SEVERITY_LEVEL
+            value: "info"
+          - name: GODEBUG
+            value: "x509ignoreCN=0"
+            #,http2client=0,http2server=0,http2debug=1,http2debug=2"
+          image: {{ .Values.agent.image }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ .Values.agent.name }}
+          resources:
+            limits:
+              cpu: {{ .Values.agent.resources.limits.cpu }}
+              memory: {{ .Values.agent.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.agent.resources.requests.cpu }}
+              memory: {{ .Values.agent.resources.requests.memory }}
+          ports:
+            - containerPort: {{ .Values.agent.opencensusport }} #Opencensus receiver port.
+          volumeMounts:
+            - name: certs
+              mountPath: /root/CA
+            - name: {{ .Values.agent.configmapName }}
+              mountPath: "/conf"
+      {{end}}
+    {{- if eq .Values.enable_toleration true }}
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: "Exists"
+          effect: "NoSchedule"
+      nodeSelector:
+        5g-openness: "true"
+    {{end}}
+      restartPolicy: Always

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app: postgres
+    type: local
+  name: postgres-pv-volume
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 11Gi
+  hostPath:
+    path: /database/postgres
+    type: ""
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: postgres
+  name: postgres-pv-claim
+  namespace: nab-dev
+spec:
+  accessModes: 
+  - ReadWriteMany
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 10Gi

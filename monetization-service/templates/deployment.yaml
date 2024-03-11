@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "monetization-service.fullname" . }}
+  namespace: nab-dev
+  labels:
+    {{- include "monetization-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "monetization-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "monetization-service.labels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: [{ name: dockerregcred }]
+        
+      {{- end }}
+      serviceAccountName: {{ include "monetization-service.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ENV_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_SERVER_PORT
+            - name: ENV_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_PROFILE
+            - name: ENV_APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_APP_NAME
+            - name: ENV_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_DB_URL
+            - name: ENV_DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_DB_USERNAME
+            - name: ENV_DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_DB_PASSWORD
+            - name: ENV_OPERATOR_CON_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_OPERATOR_CON_TIMEOUT
+            - name: ENV_OPERATOR_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: monetizationconfig
+                  key: ENV_OPERATOR_URL
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.volumeMounts }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

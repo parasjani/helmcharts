@@ -1,0 +1,143 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "application-partner-service.fullname" . }}
+  namespace: nab-dev
+  labels:
+    {{- include "application-partner-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "application-partner-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "application-partner-service.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+      - name: dockerregcred
+      serviceAccountName: {{ include "application-partner-service.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ENV_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_SERVER_PORT
+            - name: ENV_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_PROFILE
+            - name: ENV_APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_APP_NAME
+            - name: ENV_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_DB_URL
+            - name: ENV_DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_DB_USERNAME
+            - name: ENV_DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_DB_PASSWORD
+            - name: ENV_SWAGGER_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_SWAGGER_USERNAME
+            - name: ENV_MONETIZATION_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_URL
+            - name: ENV_MONETIZATION_CONTEXT_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_CONTEXT_PATH
+            - name: ENV_MONETIZATION_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_SERVICE_NAME
+            - name: ENV_MONETIZATION_RETRY_COUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_RETRY_COUNT
+            - name: ENV_MONETIZATION_RETRY_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_RETRY_INTERVAL
+            - name: ENV_MONETIZATION_CON_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_MONETIZATION_CON_TIMEOUT
+            - name: ENV_SWAGGER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_SWAGGER_PASSWORD
+            - name: COM_NIO_CONFIG_V1_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: COM_NIO_CONFIG_V1_URL
+            - name: COM_NIO_CONFIG_V1_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: COM_NIO_CONFIG_V1_USERNAME
+            - name: COM_NIO_CONFIG_V1_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: COM_NIO_CONFIG_V1_PASSWORD
+            - name: COM_NIO_CONFIG_V2_PLATFORMURL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: COM_NIO_CONFIG_V2_PLATFORMURL
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

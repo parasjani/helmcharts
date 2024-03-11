@@ -1,0 +1,138 @@
+# INTEL CONFIDENTIAL
+#
+# Copyright 2020-2020 Intel Corporation.
+#
+# This software and the related documents are Intel copyrighted materials, and your use of
+# them is governed by the express license under which they were provided to you ("License").
+# Unless the License provides otherwise, you may not use, modify, copy, publish, distribute,
+# disclose or transmit this software or the related documents without Intel's prior written permission.
+#
+# This software and the related documents are provided as is, with no express or implied warranties,
+# other than those that are expressly stated in the License.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: "{{ .Values.service.name }}"
+  name: nef
+  namespace: "{{ .Values.namespace }}"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      service: "{{ .Values.service.name }}"
+  template:
+    metadata:
+      labels:
+        service: "{{ .Values.service.name }}"
+      name: nef
+      namespace: "{{ .Values.namespace }}"
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/" .Values.configmap.name ".yaml") . | sha256sum }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      volumes:
+        - name: shared-configs-nef
+          configMap:
+            name: "{{ .Values.configmap.nef }}"
+        - name: shared-configs-oauth2
+          configMap:
+            name: "{{ .Values.configmap.oauth2 }}"
+        - name: shared-certs
+          configMap:
+            name: "{{ .Values.configmap.certs }}"
+        - name: {{ .Values.agent.configmapName }}
+          configMap:
+            name: {{ .Values.agent.configMap }}
+        - name: certs
+          secret:
+            secretName: root-cert
+      hostAliases:
+      - ip: "3.110.132.163"
+        hostnames:
+        - "pcf.niotest.com"
+        - "amf.niotest.com"
+        - "udr.niotest.com"
+        - "nrf.niotest.com"
+      imagePullSecrets:
+      - name: dockerregcred
+      containers:
+        - securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+          name: nef-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command: ["/bin/bash", "-c", "--"]
+          args: ["./entrypoint.sh"]
+          env:
+          - name: GO111MODULE
+            value: "on"
+          - name: OTEL_AGENT_ENDPOINT
+            value: "{{ .Values.agent.receiver.opencensus.endpoint }}"
+          resources:
+            requests:
+              memory: 1Gi
+            limits:
+              memory: 1Gi
+          ports:
+            - containerPort: 8060
+              name: af
+            - containerPort: 9051
+              name: notification
+            - containerPort: 10051
+              name: sslnotif
+          volumeMounts:
+            - name: shared-configs-nef
+              mountPath: /home/nef/configs/nef.json
+              subPath: nef.json
+            - name: shared-configs-oauth2
+              mountPath: /home/nef/configs/oauth2.json
+              subPath: oauth2.json
+            - name: shared-certs
+              mountPath: /etc/certs
+        - command:
+            - "/otelcol"
+            - "--config=/conf/otel-nef-agent-config.yaml"
+            - "--mem-ballast-size-mib=165"
+            - "--log-level=DEBUG"
+          env:
+            - name: no_proxy
+              value: localhost,127.0.0.1,otel-collector.telemetry.svc
+            - name: GRPC_GO_LOG_VERBOSITY_LEVEL
+              value: "99"
+            - name: GRPC_GO_LOG_SEVERITY_LEVEL
+              value: "info"
+            - name: GODEBUG
+              value: "x509ignoreCN=0"
+          image: {{ .Values.agent.image }}
+          imagePullPolicy: IfNotPresent
+          name: {{ .Values.agent.name }}
+          resources:
+            limits:
+              cpu: {{ .Values.agent.resources.limits.cpu }}
+              memory: {{ .Values.agent.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.agent.resources.requests.cpu }}
+              memory: {{ .Values.agent.resources.requests.memory }}
+          ports:
+            - containerPort: {{ .Values.agent.opencensusport }} #Opencensus receiver port.
+          volumeMounts:
+            - name: {{ .Values.agent.configmapName }}
+              mountPath: "/conf"
+            - name: certs
+              mountPath: /root/CA
+    {{- if eq .Values.enable_toleration true }}
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: "Exists"
+          effect: "NoSchedule"
+      nodeSelector:
+        5g-openness: "true"
+    {{end}}
+      restartPolicy: Always

@@ -1,0 +1,460 @@
+apiVersion: v1
+data:
+  nef.json: |
+    {
+    "NefAPIRoot": "nefservice",
+    "NefAPIPort": ":31578",
+    "NefSSLAPIPort": ":10051",
+    "LocationPrefix": "/3gpp-traffic-influence/v1/",
+    "LocationPrefixPfd": "/3gpp-pfd-management/v1/",
+    "MaxSubSupport": 10000,
+    "MaxPfdTransSupport": 10000,
+    "MaxAFSupport": 3,
+    "SubStartId": 11111,
+    "PfdTransStartID": 10000,
+    "UpfNotificationResUriPath": "/3gpp-traffic-influence/v1/notification/upf",
+    "NotifWebsocketURI": "/nef/v1/nef-notifications",
+    "UserAgent": "NEF",
+    "DeviceRegistry": true,
+    "HTTP2Config": {
+        "Enable": true,
+        "Endpoint": ":8060",
+        "NefServerCert": "/etc/certs/server-cert.pem",
+        "NefServerKey": "/etc/certs/server-key.pem",
+        "AfClientCert": "/etc/certs/root-ca-cert.pem"
+    },
+    "DeviceRegistryCliConfig": {
+        "Name": "DeviceRegistryV2",
+        "Protocol": "http",
+        "ProtocolVer": "1.0",
+        "VerifyCerts": false,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "device-registry-service.nab-dev",
+        "Port": "9083",
+        "ResourceURI": "/dvc/device-registry-service",
+        "OAuth2Support": false,
+        "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+    },
+    "ServerConfig": {
+        "CNCAEndpoint": ":9050",
+        "Hostname": "nefservice",
+        "NotifPort": ":9051",
+        "SSLNotifPort": ":10051",
+        "NotifWebsocketPort": ":9052",
+        "NotifWSExposedPort": ":9052",
+        "NotifWebsocketHostname": "nefservice",
+        "UIEndpoint": "http://nefservice:4020",
+        "ServerCertPath": "/etc/certs/server-cert.pem",
+        "ServerKeyPath": "/etc/certs/server-key.pem",
+        "TLSEnabled": true
+    },
+    "AfServiceID": [
+        {
+            "id": "id1_value",
+            "dnn": "dnn1_value",
+            "snssai": "snssai1_value"
+        }
+    ],
+    "OAuth2Support": false,
+    "PcfPolicyAuthorizationConfig": {
+        "Protocol": "http",
+        "ProtocolVer": "1.1",
+        "VerifyCerts": true,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "pcf.niotest.com",
+        "Port": "80",
+        "PolicyName": "pcf-policy",
+        "ResourceURI": "/npcf-policyauthorization/v1/app-sessions",
+        "OAuth2Support": false
+    },
+    "UDRInfluenceDataConfig": {
+        "Protocol": "http",
+        "ProtocolVer": "1.1",
+        "VerifyCerts": true,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "udr.niotest.com",
+        "Port": "80",
+        "PolicyName": "pcf-policy",
+        "ResourceURI": "/nudr-dr/v1/application-data/influenceData/",
+        "OAuth2Support": false
+    },
+    "UDRPolicyDataProvConfig": {
+        "Protocol":"http",
+        "ProtocolVer":"1.1",
+        "VerifyCerts":true,
+        "ClientCert":"/etc/certs/root-ca-cert.pem",
+        "Hostname": "64392792-2bc7-47f2-87d9-4ecb6428008f.mock.pstmn.io",
+        "UserAgent": "NGC-NEF",
+        "Port": "",
+        "ResourceURI":"/nudr-prov/v1",
+        "OAuth2ConfigName" : "Keycloak-local",
+        "OAuth2Support":false,
+        "PolicyName":"pcf-policy"
+    },
+    "UDRPfdDataConfig": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "VerifyCerts": true,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "cntfservice",
+        "Port": "8095",
+        "PolicyName": "pcf-policy",
+        "ResourceURI": "/nudr-dr/v1/application-data/pfds/",
+        "OAuth2Support": false
+    },
+    "AmfEventExposureConfig": {
+        "Protocol": "http",
+        "ProtocolVer": "1.1",
+        "VerifyCerts": false,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "amf.niotest.com",
+        "Port": "80",
+        "ResourceURI": "/namf-evts/v1",
+        "OAuth2Support": false,
+        "callbackURI": "https://nefservice:9052/nnef-eventexposure/v1/subscriptions"
+    },
+    "DBConfig": {
+        "ClientCertPath": "/etc/db/certs/server.crt",
+        "ClientKeyPath": "/etc/db/certs/server.key",
+        "CaCertPath": "/etc/db/certs/ca.crt",
+        "Hostname": "127.0.0.1",
+        "Port": "2379",
+        "Plugin": "mock"
+    },
+    "SessionDBConfig": {
+        "Enable": true,
+        "Host": "mysql.nab-dev.svc.cluster.local:3306",
+        "Username": "niotis",
+        "Password": "niotis",
+        "Database": "niotis"
+    },
+    "ConfigurationDB":{
+        "Host": "mysql.nab-dev.svc.cluster.local:3306",
+        "Username": "niotis",
+        "Password": "niotis",
+        "Database": "niotis"
+    },
+    "UdrGpsiToSupiConfig": {
+        "Protocol": "https",
+        "ProtocolVer": "1.1",
+        "VerifyCerts": true,
+        "ClientCert": "/etc/certs/root-ca-cert.pem",
+        "Hostname": "2171b7b3-abe2-4da2-8612-d90f17db8682.mock.pstmn.io",
+        "Port": "443",
+        "ResourceURI": "",
+        "OAuth2Support": false,
+        "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+    },
+    "UdrGpsiToSupiCliConfig": {
+        "Protocol": "https",
+        "Hostname": "2171b7b3-abe2-4da2-8612-d90f17db8682.mock.pstmn.io",
+        "Port": "443",
+        "ProtocolVer": "1.1",
+        "BasePath": "/nudm-sdm/v1",
+        "NEFBasePath": "/3gpp-traffic-influence/v1",
+        "NEFPFDBasePath": "/3gpp-pfd-management/v1",
+        "NEFLocationInfoPath": "/nnef-eventexposure/v1",
+        "UserAgent": "NGC-NEF",
+        "NEFCliCertPath": "/etc/certs/root-ca-cert.pem",
+        "NotifyClientCertPath": "/etc/certs/root-ca-cert.pem",
+        "OAuth2Support": false,
+        "VerifyCerts": false
+    },
+    "NRFCliConfig": {
+        "Protocol": "http",
+        "Hostname": "nrf.niotest.com",
+        "Port": "80",
+        "ProtocolVer": "1.0",
+        "BasePath": "/nnrf-disc/v1",
+        "TargetNfType": [
+            "UDM",
+            "PCF"
+        ],
+        "UserAgent": "NGC-NEF",
+        "NEFCliCertPath": "/etc/certs/root-ca-cert.pem",
+        "NotifyClientCertPath": "/etc/certs/root-ca-cert.pem",
+        "OAuth2Support": false,
+        "VerifyCerts": false
+    },
+    "NRFRegistrationConfig":{
+        "Protocol":"http",
+        "ProtocolVer":"1.0",
+        "VerifyCerts":false,
+        "Port": "80",
+        "ClientCert":"/etc/certs/root-ca-cert.pem",
+        "Hostname": "nrf.niotest.com",
+        "ResourceURI":"/nnrf-nfm/v1/",
+        "OAuth2ConfigName" : "Keycloak-local",
+        "OAuth2Support":false
+    },
+    "EventMonitoringNotificationCliConfig": {
+        "Protocol": "https",
+        "Hostname": "afservice",
+        "Port": "8051",
+        "ProtocolVer": "2.0",
+        "BasePath": "/af/3gpp-monitoring-event/v1/notifications",
+        "UserAgent": "NGC-NEF",
+        "NEFCliCertPath": "/etc/certs/server-cert.pem",
+        "NotifyClientCertPath": "/etc/certs/server-cert.pem",
+        "OAuth2Support": false,
+        "VerifyCerts": false
+    },
+    "NefNIONotificationCliConfig": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "Hostname": "niop-niotis.nab-dev",
+        "Port": "20080",
+        "UserAgent": "NGC-NEF",
+        "BasePath": "/3gpp-as-session-with-qos/v1/notify",
+        "NotifyClientCertPath": "/etc/certs/niotis-cert.pem",
+        "VerifyCerts": false,
+        "OAuth2Support": false,
+        "HttpNioClientVersion": "v1",
+        "NotifURI": "/3gpp-as-session-with-qos/v1/notify"
+    },
+    "AfNotificationCliConfig": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "Hostname": "afservice",
+        "Port": "8051",
+        "UserAgent": "NGC-NEF",
+        "BasePath": "/af/3gpp-traffic-influence/v1/uppathchg/notifications",
+        "NotifyClientCertPath": "/etc/certs/root-ca-cert.pem",
+        "VerifyCerts": false,
+        "OAuth2Support": false,
+        "NotifURI": "/af/3gpp-traffic-influence/v1/uppathchg/notifications"
+    },
+    "EventExposureEndPointsConfig": {
+        "EndPoints": [
+            {
+                "Keys": [
+                    "*"
+                ],
+                "Type": "AMF",
+                "ClientConfig": {
+                    "Name": "AMF-1",
+                    "Protocol": "http",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": true,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "amf.niotest.com",
+                    "Port": "80",
+                    "PolicyName": "amf-policy",
+                    "ResourceURI": "/namf-evts/v1/",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "ROAMING_STATUS"
+                ],
+                "Type": "UDM",
+                "ClientConfig": {
+                    "Name": "UDM",
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "3640b2e1-965d-4f4d-8bdf-2385b00c8753.mock.pstmn.io",
+                    "Port": "",
+                    "PolicyName": "amf-policy",
+                    "ResourceURI": "/ROAMING_STATUS_UDM",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "LOCATION_REPORT", "LOCATION_REPORTING"
+                ],
+                "Type": "AMF",
+                "ClientConfig": {
+                    "Name": "AMF-LOCATION",
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "3d9111bc-7bf9-4839-a7b9-5764ab96ce78.mock.pstmn.io",
+                    "Port": "",
+                    "PolicyName": "amf-policy",
+                    "ResourceURI": "/namf-evts/v1",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "CHANGE_OF_SUPI_PEI_ASSOCIATION",
+                    "CHANGE_OF_IMSI_IMEI_ASSOCIATION"
+                ],
+                "Type": "UDM",
+                "ClientConfig": {
+                    "Name": "UDM",
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "be9fcdaf-3d14-4768-b2ac-c93cb4d116d1.mock.pstmn.io",
+                    "Port": "443",
+                    "ResourceURI": "/CHANGE_IN_IMSI_UDM",
+                    "OAuth2Support": false,
+                    "PolicyName": "amf-policy",
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "PDN_CONNECTIVITY_STATUS"
+                ],
+                "Type": "UDM",
+                "ClientConfig": {
+                    "Name": "UDM",
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "5df0912d-2416-434c-a852-d620bde31a72.mock.pstmn.io",
+                    "Port": "443",
+                    "ResourceURI": "/PDN_CONNECTIVITY_STATE_UDM",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "LOSS_OF_CONNECTIVITY"
+                ],
+                "Type": "UDM",
+                "ClientConfig": {
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "65f1e1b8-f73e-466a-9be3-38d606d4f7e3.mock.pstmn.io",
+                    "Port": "",
+                    "ResourceURI": "/LOSS_OF_CONNECTIVITY_UDM",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "REACHABILITY_REPORT",
+                    "UE_REACHABILITY",
+                    "UE_REACHABILITY_FOR_DATA"
+                ],
+                "Type": "AMF",
+                "ClientConfig": {
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "21cf692e-27fb-40b9-8aa2-85230df15742.mock.pstmn.io",
+                    "Port": "",
+                    "ResourceURI": "/namf-evts/v1/",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "COMMUNICATION_FAILURE_REPORT"
+                ],
+                "Type": "AMF",
+                "ClientConfig": {
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "9324b904-76a4-43f1-bea4-e067bc6c2712.mock.pstmn.io",
+                    "Port": "",
+                    "ResourceURI": "/namf-evts/v1/",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            },
+            {
+                "Keys": [
+                    "LOCATION_REPORT_UDM_CELL_LEVEL"
+                ],
+                "Type": "UDM",
+                "ClientConfig": {
+                    "Protocol": "https",
+                    "ProtocolVer": "1.1",
+                    "VerifyCerts": false,
+                    "ClientCert": "/etc/certs/root-ca-cert.pem",
+                    "Hostname": "7e09f04b-3722-47df-8348-f612488a30ef.mock.pstmn.io",
+                    "Port": "",
+                    "ResourceURI": "/LOCATION_REPORT_UDM_CELL_LEVEL",
+                    "OAuth2Support": false,
+                    "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
+                }
+            }
+        ]
+    },
+    "OAuthClientConfig": [
+        {
+            "OAuth2ConfigName": "Keycloak-local",
+            "OAuth2TokenUrl": "http://172.27.53.12:31996/realms/nabstract/protocol/openid-connect/token",
+            "OAuthClientid": "app",
+            "OAuthClientSecret": "8udW7l6Lzgj3SnKAF5Kz0JF6PbapyPsF",
+            "Scope": [
+                "user"
+            ]
+        }
+    ],
+    "Policies": [
+        {
+            "PolicyName": "pcf-policy",
+            "EventMonitoring": {
+                "ImmediateRep": false,
+                "SuppFeature": "FFFF"
+            },
+            "TrafficInfluence": {
+                "SuppFeature": "13003"
+            },
+            "Qod": {
+                "SuppFeature": "13003"
+            },
+            "FuturePDU": {
+                "DirectPolicyUpdate": false,
+                "SuppFeature": "13003",
+                "SubscCats": [
+                    "subsc_NEF_1"
+                ]
+            }
+        },
+        {
+            "PolicyName": "amf-policy",
+            "EventMonitoring": {
+                "ImmediateRep": false,
+                "SuppFeature": "FFFF"
+            },
+            "TrafficInfluence": {
+                "SuppFeature": "13003"
+            },
+            "Qod": {
+                "SuppFeature": "13003"
+            }
+        },
+        {
+            "PolicyName": "udm-policy",
+            "EventMonitoring": {
+                "ImmediateRep": false,
+                "SuppFeature": "4"
+            },
+            "TrafficInfluence": {
+                "SuppFeature": "13003"
+            },
+            "Qod": {
+                "SuppFeature": "13003"
+            }
+        }
+    ]
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: nef-cm
+  namespace: nab-ngc-dev
