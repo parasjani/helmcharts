@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "niotis.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "niotis.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "niotis.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "niotis.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: [{ name: dockerregcred }]
+        
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      hostAliases:
+      - ip: "172.27.53.15"
+        hostnames:
+        - "pcf.intelniotest.com"
+        - "amf.intelniotest.com"
+        - "udr.intelniotest.com"
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: COM_NIO_CONFIG_V2PLATFORMURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2PLATFORMURL
+            - name: COM_NIO_CONFIG_V2DEVICEURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2DEVICEURL
+            - name: COM_NIO_CONFIG_V2PARTNERURL 
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2PARTNERURL
+            - name: COM_NIO_CONFIG_V2PARTNERUIURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2PARTNERUIURL
+            - name: COM_NIO_CONFIG_V2MONETIZATIONURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2MONETIZATIONURL
+            - name: COM_NIO_CONFIG_V2OPERATORURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2OPERATORURL
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.environment.springDataSourceUrl }}
+            - name: OPENNESS_OAM_REGISTERSERVICE_URL
+              value: {{ .Values.environment.opennessOamRegisterserviceUrl }}
+            - name: OPENNESS_AF_PFDS_URL
+              value: {{ .Values.environment.opennessAfPfdsUrl }}
+            - name: OPENNESS_AF_SUBSCRIPTION_URL
+              value: {{ .Values.environment.opennessAfSubscriptionUrl }}
+            - name: TRUST_LOCAL_STORE
+              value: {{ .Values.environment.trustLocalStore }}
+          ports:
+            - name: {{ .Values.portName }}
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

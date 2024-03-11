@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "application-partner-context-ui.fullname" . }}
+  namespace: nab-dev
+  labels:
+    {{- include "application-partner-context-ui.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "application-partner-context-ui.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "application-partner-context-ui.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+      - name: dockerregcred
+      serviceAccountName: {{ include "application-partner-context-ui.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: REACT_APP_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_API_URL
+            - name: REACT_APP_PARTNER_SERVICES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_PARTNER_SERVICES_URL
+            - name: REACT_APP_PLATFORM_CONFIGURATION_SERVICES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_PLATFORM_CONFIGURATION_SERVICES_URL
+            - name: REACT_APP_DEVICE_SERVICES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_DEVICE_SERVICES_URL
+            - name: REACT_APP_HEADER_CONTENT_TYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_HEADER_CONTENT_TYPE
+            - name: REACT_APP_X_CORRELATION_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_X_CORRELATION_ID
+            - name: REACT_APP_X_IDENTITY_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_X_IDENTITY_KEY
+            - name: REACT_APP_X_REQUEST_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: niouiconfig
+                  key: REACT_APP_X_REQUEST_ID
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

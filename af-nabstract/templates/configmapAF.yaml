@@ -1,0 +1,96 @@
+apiVersion: v1
+data:
+  af.json: |
+    {
+      "AfId": "11",
+      "LocationPrefixPfd": "/af/v1/pfd/",
+      "LocationPrefixPA": "/af/v1/policy-authorization/app-sessions",
+      "NotifWebsocketURI": "/af/v1/af-notifications",
+      "UserAgent": "NGC-AF",
+      "ServerConfig": {
+        "Protocol": "https",
+        "CNCAEndpoint": ":8050",
+        "Hostname": "afservice",
+        "NotifPort": ":8051",
+        "NotifWebsocketPort": ":30052",
+        "NotifWSExposedPort": ":30052",
+        "NotifWebsocketHostname": "afservice",
+        "UIEndpoint": "http:///192.168.7.160:3020",
+        "ServerCertPath": "/etc/certs/server-cert.pem",
+        "ServerKeyPath": "/etc/certs/server-key.pem",
+        "TLSEnabled": true
+      },
+      "CliConfig": {
+        "Protocol": "https",
+        "NEFHostname": "nefservice",
+        "NEFPort": ":8060",
+        "ProtocolVer": "2.0",
+        "NEFBasePath": "/3gpp-traffic-influence/v1",
+        "NEFPFDBasePath": "/3gpp-pfd-management/v1",
+        "NEFLocationInfoPath": "/nnef-eventexposure/v1",
+        "NEFEventMonitoringBasePath": "/3gpp-monitoring-event/v1",
+        "UserAgent": "NGC-AF",
+        "NEFCliCertPath": "/etc/certs/root-ca-cert.pem",
+        "NotifyClientCertPath": "/etc/certs/root-ca-cert.pem",
+        "OAuth2Support": false,
+        "OAuth2ConfigName": "Keycloak-local",
+        "TLSEnabled": true
+      },
+      "CliPAConfig": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "Hostname": "cntfservice",
+        "Port": "8095",
+        "BasePath": "/npcf-policyauthorization/v1",
+        "CliCertPath": "/etc/certs/root-ca-cert.pem",
+        "VerifyCerts": true,
+        "OAuth2Support": false,
+        "NotifURI": "/af/v1/policy-authorization"
+      },
+      "DBConfig": {
+        "ClientCertPath": "/etc/db/certs/server.crt",
+        "ClientKeyPath": "/etc/db/certs/server.key",
+        "CaCertPath": "/etc/db/certs/ca.crt",
+        "Hostname": "127.0.0.1",
+        "Port": "2379",
+        "Plugin": "mock"
+      },
+      "NIONotificationCliCfg": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "NEFHostname": "niop-niotis.nab-dev",
+        "NEFPort": "20080",
+        "UserAgent": "NGC-AF",
+        "NEFBasePath": "/event-monitoring/notification",
+        "NEFCliCertPath": "/etc/certs/root-ca-cert.pem",
+        "VerifyCerts": false,
+        "OAuth2Support": false,
+        "NotifURI": "/af/v1/policy-authorization"
+      },
+      "NIOTiNotificationCliCfg": {
+        "Protocol": "https",
+        "ProtocolVer": "2.0",
+        "NEFHostname": "niop-niotis.nab-dev",
+        "NEFPort": "20080",
+        "UserAgent": "NGC-AF",
+        "NEFBasePath": "/3gpp-traffic-influence/v1/uppathchg/notifications",
+        "NEFCliCertPath": "/etc/certs/niotis-cert.pem",
+        "VerifyCerts": true,
+        "OAuth2Support": false,
+        "NotifURI": "/3gpp-traffic-influence/v1/uppathchg/notifications"
+      },
+      "OAuthClientConfig" : [
+        {
+            "OAuth2ConfigName" : "Keycloak-local",
+            "OAuth2TokenUrl" : "http://cntf.nabstract.com/realms/nabstract/protocol/openid-connect/token",
+            "OAuthClientid": "app",
+            "OAuthClientSecret": "8udW7l6Lzgj3SnKAF5Kz0JF6PbapyPsF",
+            "Scope":["user"]
+        }
+    ]
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: af-cm
+  namespace: {{ .Values.namespace}}

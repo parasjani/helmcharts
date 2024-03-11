@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  POSTGRES_DB: postgresdb
+  POSTGRES_PASSWORD: admin
+  POSTGRES_USER: postgres
+kind: ConfigMap
+metadata:
+  labels:
+    app: postgres
+  name: postgres-config
+  namespace: nab-dev
+

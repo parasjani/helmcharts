@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "device-registry-service.fullname" . }}
+  namespace: nab-dev
+  labels:
+    {{- include "device-registry-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "device-registry-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "device-registry-service.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+      - name: dockerregcred
+      serviceAccountName: {{ include "device-registry-service.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ENV_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_SERVER_PORT
+            - name: ENV_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PROFILE
+            - name: ENV_APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_APP_NAME
+            - name: ENV_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_DB_URL
+            - name: ENV_DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_DB_USERNAME
+            - name: ENV_DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_DB_PASSWORD
+            - name: ENV_PARTNER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_URL
+            - name: ENV_PARTNER_CONTEXT_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_CONTEXT_PATH
+            - name: ENV_PARTNER_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_SERVICE_NAME
+            - name: ENV_PARTNER_RETRY_COUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_RETRY_COUNT
+            - name: ENV_PARTNER_RETRY_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_RETRY_INTERVAL
+            - name: ENV_PARTNER_CON_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PARTNER_CON_TIMEOUT
+            - name: ENV_SWAGGER_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_SWAGGER_USERNAME
+            - name: ENV_SWAGGER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_SWAGGER_PASSWORD
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

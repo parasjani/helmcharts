@@ -1,0 +1,14 @@
+{
+        "auths": {
+                "172.27.53.12:30003": {
+                        "auth": "YWRtaW46SGFyYm9yMTIzNDU="
+                },
+                "https://index.docker.io/v1/": {
+                        "auth": "ZGV2bmlvOmRja3JfcGF0X181NllkRnF4bWxBaFlIWUtGLWxYcXBzUmpDSQ=="
+                },
+                "registry.redhat.io": {
+                        "auth": "aXNoYW5zaGFoOjIwQEkkI2Fu"
+                }
+        }
+}
+
