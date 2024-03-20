@@ -63,10 +63,11 @@ readinessProbe:
   timeoutSeconds: 1
 
 service:
-  type: ClusterIP
-  clusterIP:
+  type: NodePort
+  NodePort:
   annotations: {}
   port: 9000
+  nodePort: 30547
 
 ingress:
   enabled: false
