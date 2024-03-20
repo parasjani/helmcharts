@@ -1,0 +1,24 @@
+apiVersion: v2
+name: sonarqube
+description: A Helm chart for deploying SonarQube.
+type: application
+version: 5.4.1
+appVersion: 10.4.1
+keywords:
+  - sonarqube
+  - sast
+  - analysis
+  - security
+  - code
+  - coverage
+  - quality
+home: https://www.sonarqube.org/
+icon: https://pbs.twimg.com/profile_images/1224335491899760641/h404B5dU_400x400.jpg
+sources:
+  - https://github.com/SonarSource/sonarqube/
+  - https://github.com/SonarSource/docker-sonarqube/
+  - https://github.com/stevehipwell/helm-charts/
+maintainers:
+  - name: Paras Jani
+    email: paras.jani@nabstract.io
+
