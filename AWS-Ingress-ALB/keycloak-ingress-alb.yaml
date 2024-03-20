@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: keycloak
+  name: ingress-keycloak
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-2:342133377929:certificate/4915a06e-5444-4572-b927-e66b763d9560
+    alb.ingress.kubernetes.io/group.name: "niop"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    alb.ingress.kubernetes.io/subnets: subnet-05505793517ff39db,subnet-0805b9b07ef7c9718,subnet-04748a88b586f829c
+    alb.ingress.kubernetes.io/success-codes: 200-400
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: keycloak
+              port:
+                number: 8080
+        - path: /realms/nabstract/protocol/openid-connect/token
+          pathType: Prefix
+          backend:
+            service:
+              name: keycloak
+              port:
+                number: 8080
