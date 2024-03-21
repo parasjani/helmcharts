@@ -11,11 +11,14 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
     alb.ingress.kubernetes.io/subnets: subnet-05505793517ff39db,subnet-0805b9b07ef7c9718,subnet-04748a88b586f829c
     alb.ingress.kubernetes.io/success-codes: 200-400
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+   #alb.ingress.kubernetes.io/actions.redirection: '{"type":"redirect","redirectConfig": { "host":"#{host}","port":"#{port}","protocol":"#{protocol}","query":"#{query}","path":"/*","statusCode":"HTTP_302"}}'
+    #alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}' 
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
 spec:
   ingressClassName: alb
   rules:
-    - http:
+    - host: devauth.nabstract.io
+      http:
         paths:
         - path: /
           pathType: Prefix
@@ -24,10 +27,13 @@ spec:
               name: keycloak
               port:
                 number: 8080
-        - path: /realms/nabstract/protocol/openid-connect/token
-          pathType: Prefix
-          backend:
-            service:
-              name: keycloak
-              port:
-                number: 8080
+        
+        
+       # - path: /keycloak
+       #   pathType: Prefix
+       #   backend:
+       #     service:
+       #       name: redirection
+       #       port:
+       #        name: use-annotation
+        
