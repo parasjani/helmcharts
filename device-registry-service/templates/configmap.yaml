@@ -10,7 +10,7 @@ data:
   ENV_DB_URL: "jdbc:postgresql://postgres:5432/nio_dvc_db"
   ENV_DB_USERNAME: "postgres"
   ENV_DB_PASSWORD: "admin"
-  ENV_PARTNER_URL: "http://18.223.111.77:31576"
+  ENV_PARTNER_URL: "https://context.nabstract.io"
   ENV_PARTNER_CONTEXT_PATH: "/apc/application-partner-service"
   ENV_PARTNER_SERVICE_NAME: "application-partner-service"
   ENV_PARTNER_RETRY_COUNT: "1"
