@@ -15,7 +15,8 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - http:
+    - host: niop.nabstract.io
+      http:
         paths:
         - path: /
           pathType: Prefix
@@ -24,3 +25,5 @@ spec:
               name: niop-niotis
               port:
                 number: 20080
+       
+        
