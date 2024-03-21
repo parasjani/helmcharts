@@ -10,6 +10,6 @@ data:
   COM_NIO_CONFIG_V2PLATFORMURL: "http://platform-configuration-service:9080/cc/platform-configuration-service"
   COM_NIO_CONFIG_V2DEVICEURL: "http://device-registry-service:9083/dvc/device-registry-service"
   COM_NIO_CONFIG_V2PARTNERURL: "http://application-partner-service:9081/apc/application-partner-service"
-  COM_NIO_CONFIG_V2PARTNERUIURL: "https://partner.nabstract.io/partner"
+  COM_NIO_CONFIG_V2PARTNERUIURL: "http://18.223.111.77:31578//partner"
   COM_NIO_CONFIG_V2MONETIZATIONURL: "http://monetization-service:8083/mzc/monetization-service"
   COM_NIO_CONFIG_V2OPERATORURL: "http://operator-service:9084/oc/operator-service"
