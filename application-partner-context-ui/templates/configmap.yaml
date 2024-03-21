@@ -4,9 +4,9 @@ metadata:
   name: niouiconfig
   namespace: nab-dev
 data:
-  REACT_APP_API_URL: "http://18.223.111.77:31575/cc/"
-  REACT_APP_PARTNER_SERVICES_URL: "http://18.223.111.77:31576/apc/application-partner-service/"
-  REACT_APP_PLATFORM_CONFIGURATION_SERVICES_URL: "http://18.223.111.77:31575/cc/platform-configuration-service/"
+  REACT_APP_API_URL: "https://context.nabstract.io/cc/"
+  REACT_APP_PARTNER_SERVICES_URL: "https://context.nabstract.io/apc/application-partner-service/"
+  REACT_APP_PLATFORM_CONFIGURATION_SERVICES_URL: "https://context.nabstract.io/cc/platform-configuration-service/"
   REACT_APP_DEVICE_SERVICES_URL: "https://context.nabstract.io/dvc/"
   REACT_APP_HEADER_CONTENT_TYPE: "application/json"
   REACT_APP_X_CORRELATION_ID: "sample"
