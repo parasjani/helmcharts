@@ -98,10 +98,10 @@ spec:
               name: afnotifyws
           volumeMounts:
             - name: shared-configs-af
-              mountPath: /home/af/configs/af.json
+              mountPath: /home/nabstractnef/configs/af.json
               subPath: af.json
             - name: shared-configs-oauth2
-              mountPath: /home/af/configs/oauth2.json
+              mountPath: /home/nabstractnef/configs/af.json
               subPath: oauth2.json
             - name: shared-certs
               mountPath: /etc/certs
