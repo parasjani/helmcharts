@@ -30,7 +30,7 @@ component: otel-agent
 
 image:
   repository: devnio/af
-  tag: "1.3.5"
+  tag: "1.3.6"
   pullPolicy: IfNotPresent
 
 service:
