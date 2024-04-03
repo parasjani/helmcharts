@@ -89,10 +89,10 @@ spec:
               name: sslnotif
           volumeMounts:
             - name: shared-configs-nef
-              mountPath: /home/nef/configs/nef.json
+              mountPath: /home/nabstractnef/configs/nef.json
               subPath: nef.json
             - name: shared-configs-oauth2
-              mountPath: /home/nef/configs/oauth2.json
+              mountPath: /home/nabstractnef/configs/oauth2.json
               subPath: oauth2.json
             - name: shared-certs
               mountPath: /etc/certs
