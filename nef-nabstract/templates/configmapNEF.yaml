@@ -297,7 +297,7 @@ data:
                     "ClientCert": "/etc/certs/root-ca-cert.pem",
                     "Hostname": "cc695e44-65b3-4b8d-abaa-aae66a741c2b.mock.pstmn.io",
                     "Port": "443",
-                    "ResourceURI": "/nudm-ee/v1",
+                    "ResourceURI": "/nudm-ee/v1/",
                     "OAuth2Support": false,
                     "PolicyName": "amf-policy",
                     "callbackURI": "https://localhost:9052/nnef-eventexposure/v1/subscriptions"
