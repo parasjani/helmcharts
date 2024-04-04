@@ -4,7 +4,7 @@
 
 replicaCount: 1
 
-hostname: "ip-172-31-92-230.us-east-2.compute.internal"
+hostname: "ip-172-31-49-183.us-east-2.compute.internal"
 namespace: nab-dev
 
 image:
