@@ -17,7 +17,7 @@ metadata:
   name: nef
   namespace: "{{ .Values.namespace }}"
 spec:
-  replicas: 0
+  replicas: "{{ .Values.replicaCount }}"
   strategy:
     type: Recreate
   selector:
