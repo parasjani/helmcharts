@@ -83,9 +83,9 @@ trivy:
   # Directly in this file
   #
   # TRIVY_USERNAME
-  registryUsername: ""
+  registryUsername: "admin"
   # TRIVY_PASSWORD
-  registryPassword: ""
+  registryPassword: "admin"
   #
   # Or
   # From an existing secret
@@ -133,7 +133,7 @@ service:
   # If specified, the name used for the Trivy service.
   name:
   # type Kubernetes service type
-  type: ClusterIP
+  type: NodePort
   # port Kubernetes service port
   port: 4954
   # sessionAffinity Kubernetes service session affinity
