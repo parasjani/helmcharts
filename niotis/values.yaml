@@ -7,7 +7,7 @@ namespace: nab-dev
 
 image:
   repository: devnio/trafficmgrv2
-  tag: "spring-boot2"
+  tag: "spring-boot3"
   pullPolicy: IfNotPresent
 
 containerPort: 20080
