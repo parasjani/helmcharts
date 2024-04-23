@@ -128,6 +128,14 @@ data:
         "Password": "niotis",
         "Database": "niotis"
     },
+    "CachingRedisDB":{
+        "Enable" : false,
+        "Host": "localhost:6379",
+        "Username": "",
+        "Password": "",
+        "Database": 0,
+        "ConfigCachingTime" : 10
+    },
     "ConfigurationDB":{
         "Host": "mysql.nab-dev.svc.cluster.local:3306",
         "Username": "niotis",
