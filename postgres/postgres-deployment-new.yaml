@@ -22,7 +22,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: postgres-config
-        image: devnio/postgres:16.0
+        image: postgres:latest
         imagePullPolicy: IfNotPresent
         name: postgres
         ports:
