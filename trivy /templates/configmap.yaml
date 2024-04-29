@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nio-nef-opm
+  namespace: nab-ngc-dev
+data:
+  REACT_APP_application_partner_service: "https://context.nabstract.io/apc/application-partner-service/"
+  REACT_APP_platform_configuration_service: "https://context.nabstract.io/cc/platform-configuration-service/"
+  REACT_APP_device_service_url: "https://context.nabstract.io/dvc/"
+  REACT_APP_nef_service_url: "http://nefservice:8060"
+  REACT_APP_prometheus_service_url: "http://localhost:9000"
+  REACT_APP_header_content_type: "application/json"
+  REACT_APP_header_x_correlation_id: "sample"
+  REACT_APP_header_x_identity_id: "sample"
+  REACT_APP_header_x_request_id: "sample"
