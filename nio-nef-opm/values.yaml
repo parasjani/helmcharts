@@ -20,7 +20,7 @@ image:
   repository: devnio/nio-nef-opm
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 0.1.185
+  tag: 0.1.18
 
 imagePullSecrets: [{ name: dockerregcred }]
 nameOverride: ""
