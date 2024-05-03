@@ -147,7 +147,7 @@ data:
         "ProtocolVer": "1.1",
         "VerifyCerts": true,
         "ClientCert": "/etc/certs/root-ca-cert.pem",
-        "Hostname": "2171b7b3-abe2-4da2-8612-d90f17db8682.mock.pstmn.io",
+        "Hostname": "cb1f5988-2850-42ae-b75d-8f074f6c01e3.mock.pstmn.io",
         "Port": "443",
         "ResourceURI": "",
         "OAuth2Support": false,
@@ -155,7 +155,7 @@ data:
     },
     "UdrGpsiToSupiCliConfig": {
         "Protocol": "https",
-        "Hostname": "2171b7b3-abe2-4da2-8612-d90f17db8682.mock.pstmn.io",
+        "Hostname": "cb1f5988-2850-42ae-b75d-8f074f6c01e3.mock.pstmn.io",
         "Port": "443",
         "ProtocolVer": "1.1",
         "BasePath": "/nudm-sdm/v1",
