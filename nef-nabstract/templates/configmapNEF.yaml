@@ -17,7 +17,7 @@ data:
     "UserAgent": "NEF",
     "DeviceRegistry": true,
     "HTTP2Config": {
-        "Enable": false,
+        "Enable": true,
         "Endpoint": ":8060",
         "NefServerCert": "/etc/certs/server-cert.pem",
         "NefServerKey": "/etc/certs/server-key.pem",
