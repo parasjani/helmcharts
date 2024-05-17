@@ -223,14 +223,14 @@ data:
     "AfNotificationCliConfig": {
         "Protocol": "https",
         "ProtocolVer": "2.0",
-        "Hostname": "afservice",
-        "Port": "8051",
-        "UserAgent": "NGC-NEF",
-        "BasePath": "/af/3gpp-traffic-influence/v1/uppathchg/notifications",
+        "Hostname": "niop-niotis.nab-dev",
+        "Port": "20080",
+        "UserAgent": "NGC-NIOP",
+        "BasePath": "/3gpp-traffic-influence/v1/uppathchg/notifications",
         "NotifyClientCertPath": "/etc/certs/root-ca-cert.pem",
         "VerifyCerts": false,
         "OAuth2Support": false,
-        "NotifURI": "/af/3gpp-traffic-influence/v1/uppathchg/notifications"
+        "NotifURI": "/3gpp-traffic-influence/v1/uppathchg/notifications"
     },
     "EventExposureEndPointsConfig": {
         "EndPoints": [
