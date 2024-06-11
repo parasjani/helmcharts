@@ -40,6 +40,16 @@ spec:
                 configMapKeyRef:
                   name: operatorconfig
                   key: ENV_SERVER_PORT
+            - name: ENV_SWAGGER_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_SWAGGER_USERNAME
+            - name: ENV_SWAGGER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_SWAGGER_PASSWORD
             - name: ENV_PROFILE
               valueFrom:
                 configMapKeyRef:
