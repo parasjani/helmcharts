@@ -22,5 +22,12 @@ data:
   COM_NIO_CONFIG_V1_USERNAME: "admin"
   COM_NIO_CONFIG_V1_PASSWORD: "admin@123"
   COM_NIO_CONFIG_V2_PLATFORMURL: "http://platform-configuration-service:9081/cc/platform-configuration-service"
+  ENV_KEYCLOAK_URL: "http://keycloak.keycloak.svc.cluster.local:8080"
+  ENV_KEYCLOAK_REALM: "nabstract"
+  ENV_KEYCLOAK_CONTEXT_PATH: ""
+  ENV_KEYCLOAK_SERVICE_NAME: "keycloak-service"
+  ENV_KEYCLOAK_USERNAME: "admin"
+  ENV_KEYCLOAK_PASSWORD: "admin"
+  ENV_KEYCLOAK_CLIENT: "admin-cli"
  
   
