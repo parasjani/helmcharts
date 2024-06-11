@@ -158,6 +158,66 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: ENV_KEYCLOAK_CLIENT
+            - name: ENV_OPERATOR_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_URL
+            - name: ENV_OPERATOR_CONTEXT_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_CONTEXT_PATH
+            - name: ENV_OPERATOR_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_SERVICE_NAME
+            - name: ENV_OPERATOR_RETRY_COUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_RETRY_COUNT
+            - name: ENV_OPERATOR_RETRY_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_RETRY_INTERVAL
+            - name: ENV_OPERATOR_CON_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_OPERATOR_CON_TIMEOUT
+            - name: ENV_NIOP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_URL
+            - name: ENV_NIOP_CONTEXT_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_CONTEXT_PATH
+            - name: ENV_NIOP_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_SERVICE_NAME
+            - name: ENV_NIOP_RETRY_COUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_RETRY_COUNT
+            - name: ENV_NIOP_RETRY_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_RETRY_INTERVAL
+            - name: ENV_NIOP_CON_TIMEOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_CON_TIMEOUT
              
           ports:
             - name: http
