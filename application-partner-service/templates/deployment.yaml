@@ -123,6 +123,42 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: COM_NIO_CONFIG_V2_PLATFORMURL
+            - name: ENV_KEYCLOAK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_URL
+            - name: ENV_KEYCLOAK_CONTEXT_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_CONTEXT_PATH
+            - name: ENV_KEYCLOAK_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_REALM
+            - name: ENV_KEYCLOAK_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_SERVICE_NAME
+            - name: ENV_KEYCLOAK_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_USERNAME
+            - name: ENV_KEYCLOAK_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_PASSWORD
+            - name: ENV_KEYCLOAK_CLIENT
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_KEYCLOAK_CLIENT
+             
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
