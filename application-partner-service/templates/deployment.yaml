@@ -103,26 +103,6 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: ENV_SWAGGER_PASSWORD
-            - name: COM_NIO_CONFIG_V1_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: apsconfig
-                  key: COM_NIO_CONFIG_V1_URL
-            - name: COM_NIO_CONFIG_V1_USERNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: apsconfig
-                  key: COM_NIO_CONFIG_V1_USERNAME
-            - name: COM_NIO_CONFIG_V1_PASSWORD
-              valueFrom:
-                configMapKeyRef:
-                  name: apsconfig
-                  key: COM_NIO_CONFIG_V1_PASSWORD
-            - name: COM_NIO_CONFIG_V2_PLATFORMURL
-              valueFrom:
-                configMapKeyRef:
-                  name: apsconfig
-                  key: COM_NIO_CONFIG_V2_PLATFORMURL
             - name: ENV_KEYCLOAK_URL
               valueFrom:
                 configMapKeyRef:
