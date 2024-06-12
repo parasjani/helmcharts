@@ -36,6 +36,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+	  env:
+            - name: ENV_AUTH_REQUEST_GENERATE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop-auth-srv
+                  key: ENV_AUTH_REQUEST_GENERATE_URL
+            - name: ENV_TOKEN_GENERATE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop-auth-srv
+                  key: ENV_TOKEN_GENERATE_URL
+            - name: ENV_CALLBACK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop-auth-srv
+                  key: ENV_CALLBACK_URL
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
