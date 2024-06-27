@@ -7,7 +7,7 @@ namespace: nab-dev
 
 image:
   repository: devnio/trafficmgrv2
-  tag: 1.4.86
+  tag: 1.4.87
   pullPolicy: IfNotPresent
 
 containerPort: 20080
