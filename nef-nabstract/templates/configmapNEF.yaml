@@ -283,7 +283,7 @@ data:
                     "ProtocolVer": "1.1",
                     "VerifyCerts": false,
                     "ClientCert": "/etc/certs/root-ca-cert.pem",
-                    "Hostname": "3d9111bc-7bf9-4839-a7b9-5764ab96ce78.mock.pstmn.io",
+                    "Hostname": "83e7e624-ac65-4c37-a042-d964d74b3c60.mock.pstmn.io",
                     "Port": "",
                     "PolicyName": "amf-policy",
                     "ResourceURI": "/namf-evts/v1",
