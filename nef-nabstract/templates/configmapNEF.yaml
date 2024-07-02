@@ -57,12 +57,12 @@ data:
     ],
     "OAuth2Support": false,
     "PcfPolicyAuthorizationConfig": {
-        "Protocol": "http",
+        "Protocol": "https",
         "ProtocolVer": "1.1",
         "VerifyCerts": true,
         "ClientCert": "/etc/certs/root-ca-cert.pem",
-        "Hostname": "pcf.niotest.com",
-        "Port": "80",
+        "Hostname": "43b89b53-0779-4a4b-bc3e-62ebe7579465.mock.pstmn.io",
+        "Port": "443",
         "PolicyName": "pcf-policy",
         "ResourceURI": "/npcf-policyauthorization/v1/app-sessions",
         "OAuth2Support": false
