@@ -85,6 +85,11 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: ENV_KEYCLOAK_CONTEXT_PATH
+            - name: ENV_IDENTITY_PROVIDER
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_IDENTITY_PROVIDER
             - name: ENV_KEYCLOAK_REALM
               valueFrom:
                 configMapKeyRef:
