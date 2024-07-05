@@ -19,3 +19,5 @@ data:
   ENV_KEYCLOAK_USERNAME: "admin"
   ENV_KEYCLOAK_PASSWORD: "admin"
   ENV_KEYCLOAK_CLIENT: "admin-cli"
+  ENV_IDENTITY_PROVIDER: "keycloak"
+
