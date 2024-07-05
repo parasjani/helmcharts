@@ -25,6 +25,7 @@ data:
   ENV_KEYCLOAK_USERNAME: "admin"
   ENV_KEYCLOAK_PASSWORD: "admin"
   ENV_KEYCLOAK_CLIENT: "admin-cli"
+  ENV_IDENTITY_PROVIDER: "keycloak"
   ENV_OPERATOR_URL: "http://operator-service:9084"
   ENV_OPERATOR_CONTEXT_PATH: "/oc/operator-service"
   ENV_OPERATOR_SERVICE_NAME: "operator-service"
