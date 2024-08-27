@@ -7,11 +7,10 @@ metadata:
   namespace: nab-dev
 spec:
   ports:
-  - nodePort: 30161
-    port: 5432
+  - port: 5432
     protocol: TCP
     targetPort: 5432
   selector:
     app: postgres
-  type: NodePort
+  type: ClusterIP
 
