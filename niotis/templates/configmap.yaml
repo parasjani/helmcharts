@@ -14,5 +14,5 @@ data:
   COM_NIO_CONFIG_V2MONETIZATIONURL: "http://monetization-service:8083/mzc/monetization-service"
   COM_NIO_CONFIG_V2OPERATORURL: "http://operator-service:9084/oc/operator-service"
   COM_NIO_CONFIG_V2AUTHSERVICEURL: "http://niop-auth-srv:8088/ac/auth-service"
-  COM_NIO_CONFIG_V2SIMSWATSERVICEURL: "http://niop-sim-swap-srv.nab-dev.svc.cluster.local:9087/sim-swap-service"
+  COM_NIO_CONFIG_V2SIMSWAPSERVICEURL: "http://niop-sim-swap-srv.nab-dev.svc.cluster.local:9087/sim-swap-service"
   COM_NIO_CONFIG_V2LOCATIONSERVICEURL: "http://niop-device-location-srv.nab-dev.svc.cluster.local:9088/device-location-service"
