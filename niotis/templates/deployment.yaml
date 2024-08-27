@@ -89,7 +89,7 @@ spec:
                 configMapKeyRef:
                   name: niop
                   key: COM_NIO_CONFIG_V2SIMSWATSERVICEURL
-             - name: ‎COM_NIO_CONFIG_V2LOCATIONSERVICEURL
+            - name: ‎COM_NIO_CONFIG_V2LOCATIONSERVICEURL
               valueFrom:
                 configMapKeyRef:
                   name: niop
