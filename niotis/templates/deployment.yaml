@@ -84,11 +84,11 @@ spec:
                 configMapKeyRef:
                   name: niop
                   key: COM_NIO_CONFIG_V2AUTHSERVICEURL
-            - name: COM_NIO_CONFIG_V2SIMSWAPSERVICEURL
+            - name: COM_NIO_CONFIG_V2SIMSWATSERVICEURL
               valueFrom:
                 configMapKeyRef:
                   name: niop
-                  key: COM_NIO_CONFIG_V2SIMSWAPSERVICEURL
+                  key: COM_NIO_CONFIG_V2SIMSWATSERVICEURL
             - name: COM_NIO_CONFIG_V2LOCATIONSERVICEURL
               valueFrom:
                 configMapKeyRef:
