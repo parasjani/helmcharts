@@ -94,6 +94,11 @@ spec:
                 configMapKeyRef:
                   name: niop
                   key: COM_NIO_CONFIG_V2LOCATIONSERVICEURL
+            - name: COM_NIO_CONFIG_V2NUMBERVERIFYSERVICEURL
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: COM_NIO_CONFIG_V2NUMBERVERIFYSERVICEURL
             - name: SPRING_DATASOURCE_URL
               value: {{ .Values.environment.springDataSourceUrl }}
             - name: OPENNESS_OAM_REGISTERSERVICE_URL
