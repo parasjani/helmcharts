@@ -100,7 +100,7 @@ spec:
                   name: niop
                   key: COM_NIO_CONFIG_V2NUMBERVERIFYSERVICEURL
             - name: SPRING_DATASOURCE_URL
-             value: {{ .Values.environment.springDataSourceUrl }}
+              value: {{ .Values.environment.springDataSourceUrl }}
           #  - name: OPENNESS_OAM_REGISTERSERVICE_URL
            #   value: {{ .Values.environment.opennessOamRegisterserviceUrl }}
            # - name: OPENNESS_AF_PFDS_URL
