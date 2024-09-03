@@ -99,16 +99,16 @@ spec:
                 configMapKeyRef:
                   name: niop
                   key: COM_NIO_CONFIG_V2NUMBERVERIFYSERVICEURL
-            - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.environment.springDataSourceUrl }}
-            - name: OPENNESS_OAM_REGISTERSERVICE_URL
-              value: {{ .Values.environment.opennessOamRegisterserviceUrl }}
-            - name: OPENNESS_AF_PFDS_URL
-              value: {{ .Values.environment.opennessAfPfdsUrl }}
-            - name: OPENNESS_AF_SUBSCRIPTION_URL
-              value: {{ .Values.environment.opennessAfSubscriptionUrl }}
-            - name: TRUST_LOCAL_STORE
-              value: {{ .Values.environment.trustLocalStore }}
+          #  - name: SPRING_DATASOURCE_URL
+         #     value: {{ .Values.environment.springDataSourceUrl }}
+          #  - name: OPENNESS_OAM_REGISTERSERVICE_URL
+           #   value: {{ .Values.environment.opennessOamRegisterserviceUrl }}
+           # - name: OPENNESS_AF_PFDS_URL
+           #   value: {{ .Values.environment.opennessAfPfdsUrl }}
+           # - name: OPENNESS_AF_SUBSCRIPTION_URL
+           #   value: {{ .Values.environment.opennessAfSubscriptionUrl }}
+           # - name: TRUST_LOCAL_STORE
+           #   value: {{ .Values.environment.trustLocalStore }}
           ports:
             - name: {{ .Values.portName }}
               containerPort: {{ .Values.containerPort }}
