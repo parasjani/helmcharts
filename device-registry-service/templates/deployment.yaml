@@ -103,6 +103,26 @@ spec:
                 configMapKeyRef:
                   name: dcsconfig
                   key: ENV_SWAGGER_PASSWORD
+            - name: ENV_PRINT_PAYLOAD
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_PRINT_PAYLOAD
+            - name: ENV_ROOT_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_ROOT_LOG_LEVEL
+            - name: ENV_NIO_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_NIO_LOG_LEVEL
+            - name: ENV_FLAYWAY_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: dcsconfig
+                  key: ENV_FLAYWAY_LOG_LEVEL
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
