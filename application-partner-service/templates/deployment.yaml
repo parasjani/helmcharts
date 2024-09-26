@@ -203,7 +203,26 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: ENV_NIOP_CON_TIMEOUT
-             
+            - name: ENV_PRINT_PAYLOAD
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_PRINT_PAYLOAD
+            - name: ENV_ROOT_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_ROOT_LOG_LEVEL
+            - name: ENV_NIO_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIO_LOG_LEVEL
+            - name: ENV_FLAYWAY_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_FLAYWAY_LOG_LEVEL
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
