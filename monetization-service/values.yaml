@@ -8,7 +8,7 @@ image:
   repository: devnio/monetizationservice
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "48"
+  tag: "50"
 
 imagePullSecrets: [{ name: dockerregcred }]
 nameOverride: ""
