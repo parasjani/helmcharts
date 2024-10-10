@@ -34,7 +34,22 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: SPRING_DATASOURCE_URL
+            - name: GOOGLEMAP_DEFAULT_LAT
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: GOOGLEMAP_DEFAULT_LAT
+            - name: GOOGLEMAP_DEFAULT_LONG
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: GOOGLEMAP_DEFAULT_LONG
+            - name: APP_TIMEZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: niop
+                  key: APP_TIMEZONE
+             - name: SPRING_DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
                   name: niop
