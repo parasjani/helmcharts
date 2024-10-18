@@ -23,7 +23,7 @@ enable_toleration: false
 
 image:
   repository: devnio/nef
-  tag: 1.1.69
+  tag: 1.1.70
   pullPolicy: IfNotPresent
 
 service:
