@@ -223,6 +223,11 @@ spec:
                 configMapKeyRef:
                   name: apsconfig
                   key: ENV_FLAYWAY_LOG_LEVEL
+            - name: ENV_NIOP_AUTH_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: apsconfig
+                  key: ENV_NIOP_AUTH_TOKEN
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
