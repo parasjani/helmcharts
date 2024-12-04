@@ -17,6 +17,7 @@ data:
   COM_NIO_CONFIG_V2SIMSWAPSERVICEURL: "http://niop-sim-swap-srv.nab-dev.svc.cluster.local:9087/sim-swap-service"
   COM_NIO_CONFIG_V2LOCATIONSERVICEURL: "http://niop-device-location-srv.nab-dev.svc.cluster.local:9088/device-location-service"
   COM_NIO_CONFIG_V2NUMBERVERIFYSERVICEURL: "http://niop-number-verification-srv.nab-dev.svc.cluster.local:9089/number-verification-service"
+  COM_NIO_CONFIG_V2QODSERVICEURL: "http://niop-qod-srv.nab-dev.svc.cluster.local:9085qod-service/sim-swap-service"
   GOOGLEMAP_DEFAULT_LAT: "12.8797"
   GOOGLEMAP_DEFAULT_LONG: "121.7740"
   APP_TIMEZONE: "Asia/Kolkata"
