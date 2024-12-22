@@ -33,4 +33,4 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-pv-claim
       nodeSelector:
-        database: db
+        kubernetes.io/hostname: "{{ .Values.hostname }}"
