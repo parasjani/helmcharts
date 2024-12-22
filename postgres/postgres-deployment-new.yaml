@@ -44,4 +44,4 @@ spec:
         persistentVolumeClaim:
           claimName: postgres-pv-claim
       nodeSelector:
-        database: db
+        kubernetes.io/hostname: ip-172-31-93-17.us-east-2.compute.internal
