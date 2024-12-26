@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: niop-auth-srv
-  namespace: nab-dev
-data:
-  ENV_AUTH_REQUEST_GENERATE_URL: "http://keycloak.keycloak..svc.cluster.local:8080/realms/ciba-test/protocol/openid-connect/ext/ciba/auth"
-  ENV_TOKEN_GENERATE_URL: "http://keycloak.keycloak..svc.cluster.local:8080/realms/ciba-test/protocol/openid-connect/token"
-  ENV_CALLBACK_URL: "http://keycloak.keycloak..svc.cluster.local:8080/realms/ciba-test/protocol/openid-connect/ext/ciba/auth/callback"
