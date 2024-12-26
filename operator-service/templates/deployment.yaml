@@ -78,43 +78,63 @@ spec:
             - name: ENV_KEYCLOAK_URL
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_URL
             - name: ENV_KEYCLOAK_CONTEXT_PATH
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_CONTEXT_PATH
             - name: ENV_IDENTITY_PROVIDER
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_IDENTITY_PROVIDER
             - name: ENV_KEYCLOAK_REALM
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_REALM
             - name: ENV_KEYCLOAK_SERVICE_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_SERVICE_NAME
             - name: ENV_KEYCLOAK_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_USERNAME
             - name: ENV_KEYCLOAK_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_PASSWORD
             - name: ENV_KEYCLOAK_CLIENT
               valueFrom:
                 configMapKeyRef:
-                  name: apsconfig
+                  name: operatorconfig
                   key: ENV_KEYCLOAK_CLIENT
+            - name: ENV_PRINT_PAYLOAD
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_PRINT_PAYLOAD
+            - name: ENV_ROOT_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_ROOT_LOG_LEVEL
+            - name: ENV_NIO_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_NIO_LOG_LEVEL
+            - name: ENV_FLAYWAY_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: operatorconfig
+                  key: ENV_FLAYWAY_LOG_LEVEL 
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
